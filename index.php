@@ -31,8 +31,14 @@
         <div class="col-lg-offset-4 col-lg-4" >
 
             <?php
-                echo Config::get('mysql/host');
-
+            //  $test =  DB::getInstance()->QueryBuilder("SELECT * FROM users WHERE username = ?" , array('alex'));
+                $test = DB::getInstance()->insert('users',
+                    array(
+                        'username'=>'Bilbo Baggins',
+                        'password'=>'qwerty',
+                        'salt'=>'salty salt',
+                        'email'=>'hobbyt@test.com'
+                    ));
 
             ?>
 
