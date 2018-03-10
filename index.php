@@ -1,3 +1,8 @@
+<?php
+    require_once 'core/init.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +14,30 @@
 	<link rel="stylesheet" href="Includes/CSS/styles.css">
 </head>
 <body>
+
 <div class="container form" >
 	<div class="row">
 		<div class="col-lg-offset-4 col-lg-4">
-			<a href="#" class="btn btn-primary">Log In</a>
-			<a href="#" class="btn btn-warning">Register</a>
+			<a href="login.php" class="btn btn-primary btn-block">Log In</a>
+            <a href="register.php" class="btn btn-warning btn-block">Register</a>
 		</div>
 	</div>
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-4" >
+
+            <?php
+                echo Config::get('mysql/host');
+
+
+            ?>
+
+        </div>
+    </div>
 </div>
 
 

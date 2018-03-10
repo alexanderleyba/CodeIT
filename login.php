@@ -40,7 +40,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-9 col-sm-offset-3">
-							<a class="btn btn-sm btn-white btn-block" href="#">Create an account</a>
+							<a class="btn btn-sm btn-white btn-block" href="register.php">Create an account</a>
 						</div>
 					</div>
 
