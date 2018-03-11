@@ -1,3 +1,8 @@
+<?php
+    require_once 'core/init.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,52 +15,58 @@
 </head>
 <body>
 <div class="container form" >
-	<form class="form-horizontal" role="form">
+	<form class="form-horizontal" role="form" method="POST" action="">
 		<h2>Registration</h2>
 		<div class="form-group">
-			<label for="Email" class="col-sm-3 control-label">Email</label>
+			<label for="email" class="col-sm-3 control-label">Email</label>
 			<div class="col-sm-9">
-				<input type="email" id="email" class="form-control" autofocus>
+				<input type="email" id="email" name="email" class="form-control" autofocus>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="username" class="col-sm-3 control-label">Username</label>
 			<div class="col-sm-9">
-				<input type="text" id="username"  class="form-control">
+				<input type="text" id="username" name="username" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="password" class="col-sm-3 control-label">Real name</label>
+			<label for="real_name" class="col-sm-3 control-label">Real name</label>
 			<div class="col-sm-9">
-				<input type="text" id="real_name" class="form-control">
+				<input type="text" id="real_name" name="real_name" class="form-control">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="BirthDate" class="col-sm-3 control-label">Date of Birth</label>
 			<div class="col-sm-9">
-				<input type="date" id="BirthDate" class="form-control">
+				<input type="date" id="BirthDate" name="BirthDate"  class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="country" class="col-sm-3 control-label">Country</label>
 			<div class="col-sm-9">
-				<select id="country" class="form-control">
-					<option>test</option>
-					<option>test</option>
-					<option>test</option>
+				<select id="country" name="country" class="form-control">
+                    <?php
+                    //    $request_countries = DB::getInstance()->QueryExecute('SELECT * FROM Country');
+                        $request_countries = DB::getInstance()->QueryExecute('SELECT * FROM Country');
+                        $countries = $request_countries->results();
+                            echo "<option value='false'> </option>";
+                            foreach ($countries as $country){
+                                echo "<option value='$country->Name'>$country->Name</option>";
+                            }
+                    ?>
 				</select>
 			</div>
-		</div> <!-- /.form-group -->
+		</div>
 		<div class="form-group">
 			<div class="col-sm-9 col-sm-offset-3">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox">I accept the terms
+						<input type="checkbox" name="terms" id="terms" value="true">I accept the terms
 					</label>
 				</div>
 			</div>
-		</div> <!-- /.form-group -->
+		</div>
 		<div class="form-group">
 			<div class="col-sm-9 col-sm-offset-3">
 				<button type="submit" class="btn btn-primary btn-block">Register</button>

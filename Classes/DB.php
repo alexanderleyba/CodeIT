@@ -59,16 +59,16 @@ class DB
 				$this->query->bindValue($counter,$parameter);
 				$counter++;
 			}
-			// after binding executing a query
-			if($this->query->execute()){
-				// if executing successful storing results as object
-				$this->results = $this->query->fetchAll(PDO::FETCH_OBJ);
-				// also updating count property
-				$this->count = $this->query->rowCount();
-			}
-			else{
-				$this->error = true;
-			}
+		}
+		// after binding executing a query
+		if($this->query->execute()){
+			// if executing successful storing results as object
+			$this->results = $this->query->fetchAll(PDO::FETCH_OBJ);
+			// also updating count property
+			$this->count = $this->query->rowCount();
+		}
+		else{
+			$this->error = true;
 		}
 		return $this;
 
