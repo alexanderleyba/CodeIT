@@ -16,7 +16,7 @@ class Validator
 	{
 		$this->db_instance = DB::getInstance();
 	}
-	// main validation method. 
+	// main validation method.
 	public function validate($check,$rule_set){
 		foreach ($rule_set as $rule_item => $rules ){
 			foreach ($rules as $rule => $setting){
@@ -26,6 +26,7 @@ class Validator
 					$this->processError("{$name} is required!");
 				}else{
 					switch ($rule){
+
 						case 'min':
 							if(strlen($value) < $setting){
 								$this->processError("{$name} must be a min of {$setting} letters!");
@@ -44,6 +45,28 @@ class Validator
 							}
 						break;
 
+						case 'unique':
+							$check_if_exists = $this->db_instance->get($setting,array($name,'=',$value));
+							if($check_if_exists->count()){
+								$this->processError("{$name} already exists!");
+							}
+
+						break;
+
+						case 'bad_symbols':
+							if(!preg_match('/^[a-z0-9]+$/i',$value)){
+								$this->processError("{$name} has forbidden characters");
+							}
+						break;
+
+						case 'type':
+							if($setting === 'email'){
+								$email = filter_var($value,FILTER_SANITIZE_EMAIL);
+								$email_checked =  filter_var($email,FILTER_VALIDATE_EMAIL);
+								if(!$email_checked) {
+									$this->processError("{$name} has an invalid format!");
+								}
+							}
 					}
 				}
 			}

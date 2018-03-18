@@ -9,7 +9,8 @@
 			    'required'=> true,
 			    'min' => 5,
 			    'max' => 20,
-			    'unique'=> 'users'
+			    'unique'=> 'users',
+                'bad_symbols'=>true
 		    ],
 
 		    'name'=> [
@@ -32,13 +33,14 @@
 		    'email'=>[
 		        'name'=>'Email',
 			    'required'=> true,
-			    'type'=>'email'
+			    'type'=>'email',
+                'unique'=>'users'
 		    ],
 
 		    'password' => [
                 'name'=>'Password',
 			    'required'=> true,
-			    'min' => 5,
+			    'min' => 1,
                 'max' => 25
 		    ],
 
@@ -52,13 +54,25 @@
                 'name'=>'terms',
                 'required' => true
             ]
-
-
 	    ];
 	    $validation = $validate->validate($_POST,$rules);
 
 	    if($validation->status()){
-	          echo 'passed';
+	          $Auth = new Auth();
+	          try {
+		          $Auth->register(array(
+			          'username'=>Helper::getInput('username'),
+			          'name'=>Helper::getInput('name'),
+			          'email'=>Helper::getInput('email'),
+			          'date_of_birth'=>Helper::getInput('DOB'),
+			          'country'=>Helper::getInput('country'),
+                      'password'=>password_hash(Helper::getInput('password'),PASSWORD_DEFAULT),
+			          'registration_time' => strtotime(date('Y-m-d H:i:s'))
+                      )
+                  );
+              } catch(Exception $e) {
+	               die($e->getMessage());
+              }
         }
     }
 
@@ -95,7 +109,7 @@
 		<div class="form-group">
 			<label for="email" class="col-sm-3 control-label">Email</label>
 			<div class="col-sm-9">
-				<input type="email" id="email" name="email" class="form-control" autofocus value="<?php echo Helper::getInput('email') ?> ">
+				<input type="text" id="email" name="email" class="form-control" autofocus value="<?php echo Helper::getInput('email')?>">
 			</div>
 		</div>
 		<div class="form-group">
@@ -107,14 +121,14 @@
 		<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Your Name</label>
 			<div class="col-sm-9">
-				<input type="text" id="name" name="name" class="form-control" value="<?php echo ltrim(Helper::getInput('name')) ?> ">
+				<input type="text" id="name" name="name" class="form-control" value="<?php echo ltrim(Helper::getInput('name'))?>">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="DOB" class="col-sm-3 control-label">Date of Birth</label>
 			<div class="col-sm-9">
-				<input type="date" id="DOB" name="DOB"  class="form-control" value="<?php echo Helper::getInput('DOB') ?>">
+				<input type="date" id="DOB" name="DOB"  class="form-control" value="<?php echo Helper::getInput('DOB')?>">
 			</div>
 		</div>
 		<div class="form-group">
