@@ -60,4 +60,14 @@ class Helper
 		return random_bytes($length);
 	}
 
+	public static function Session_save($name,$value){
+		return $_SESSION[$name] = $value;
+	}
+
+	public static function  Session_delete($name){
+		if(isset($_SESSION[$name])){
+			unset($_SESSION[$name]);
+		}
+	}
+
 }

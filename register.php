@@ -70,6 +70,8 @@
 			          'registration_time' => strtotime(date('Y-m-d H:i:s'))
                       )
                   );
+
+		          Helper::redirect('index.php');
               } catch(Exception $e) {
 	               die($e->getMessage());
               }

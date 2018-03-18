@@ -130,6 +130,11 @@ class DB
 	    return false;
 	 }
 
+	// getter for fisrst in results
+	public function first(){
+	 	return $this->results()[0];
+	}
+
 	// getter for Errors
 	public function error(){
 		return $this->error;
