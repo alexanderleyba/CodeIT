@@ -1,85 +1,86 @@
 <?php
     require_once 'core/init.php';
-    if(Helper::checkInput()){
-
+    $Auth = new Auth();
+    if($Auth->isLogin()){
+        Helper::redirect('index.php');
+    }elseif (Helper::checkInput()){
 	    $validate = new Validator();
 	    $rules = [
 		    'username'=> [
-                'name'=>'Username',
+			    'name'=>'Username',
 			    'required'=> true,
 			    'min' => 5,
 			    'max' => 20,
 			    'unique'=> 'users',
-                'bad_symbols'=>true
+			    'bad_symbols'=>true
 		    ],
 
 		    'name'=> [
-                'name' => 'Real name',
+			    'name' => 'Real name',
 			    'required'=> true,
 			    'min' => 5,
 			    'max' => 50
 		    ],
 
 		    'DOB' => [
-		        'name' => 'Date of Birth',
+			    'name' => 'Date of Birth',
 			    'required'=> true
 		    ],
 
 		    'country' => [
-		        'name'=> 'Country',
+			    'name'=> 'Country',
 			    'required'=> true
 		    ],
 
 		    'email'=>[
-		        'name'=>'Email',
+			    'name'=>'Email',
 			    'required'=> true,
 			    'type'=>'email',
-                'unique'=>'users'
+			    'unique'=>'users'
 		    ],
 
 		    'password' => [
-                'name'=>'Password',
+			    'name'=>'Password',
 			    'required'=> true,
-			    'min' => 1,
-                'max' => 25
+			    'min' => 6,
+			    'max' => 25
 		    ],
 
 		    'password_second' => [
-                'name'=>'Password again',
+			    'name'=>'Password again',
 			    'required'=> true,
 			    'matches' => 'password'
 		    ],
 
-            'terms' => [
-                'name'=>'terms',
-                'required' => true
-            ]
+		    'terms' => [
+			    'name'=>'Terms',
+			    'required' => true
+		    ]
 	    ];
 	    $validation = $validate->validate($_POST,$rules);
 
 	    if($validation->status()){
-	          $Auth = new Auth();
-	          try {
-		          $Auth->register(array(
-			          'username'=>Helper::getInput('username'),
-			          'name'=>Helper::getInput('name'),
-			          'email'=>Helper::getInput('email'),
-			          'date_of_birth'=>Helper::getInput('DOB'),
-			          'country'=>Helper::getInput('country'),
-                      'password'=>password_hash(Helper::getInput('password'),PASSWORD_DEFAULT),
-			          'registration_time' => strtotime(date('Y-m-d H:i:s'))
-                      )
-                  );
-
-		          Helper::redirect('index.php');
-              } catch(Exception $e) {
-	               die($e->getMessage());
-              }
-        }
+		    //  $Auth = new Auth();
+		    try {
+			    $Auth->register(array(
+					    'username'=>Helper::getInput('username'),
+					    'name'=>Helper::getInput('name'),
+					    'email'=>Helper::getInput('email'),
+					    'date_of_birth'=>Helper::getInput('DOB'),
+					    'country'=>Helper::getInput('country'),
+					    'password'=>password_hash(Helper::getInput('password'),PASSWORD_DEFAULT),
+					    'registration_time' => strtotime(date('Y-m-d H:i:s'))
+				    )
+			    );
+               if($Auth->login(Helper::getInput('username'),Helper::getInput('password'))){
+                   Helper::redirect('index.php');
+               }
+			   // Helper::redirect('index.php');
+		    } catch(Exception $e) {
+			    die($e->getMessage());
+		    }
+	    }
     }
-
-
-
 
 ?>
 

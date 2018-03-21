@@ -1,22 +1,24 @@
 <?php
     require_once 'Core/init.php';
-
-    if(Helper::checkInput()){
-        $validate = new Validator();
-        $rules = [
-            'login' => ['name'=>'Login','required'=>true],
-            'password'=>['name'=>'Password','required'=>true]
-        ];
-	    $validation = $validate->validate($_POST,$rules);
-        if($validation->status()){
-            $Auth = new Auth();
-            $login = $Auth->login(Helper::getInput('login'),Helper::getInput('password'));
-            if($login){
-                Helper::redirect('index.php');
-            }
-        }
+    $user = new Auth();
+    if($user->isLogin()){
+        Helper::redirect('index.php');
     }
-
+    elseif (Helper::checkInput()){
+	    $validate = new Validator();
+	    $rules = [
+		    'login' => ['name'=>'Login','required'=>true],
+		    'password'=>['name'=>'Password','required'=>true]
+	    ];
+	    $validation = $validate->validate($_POST,$rules);
+	    if($validation->status()){
+		    $Auth = new Auth();
+		    $login = $Auth->login(Helper::getInput('login'),Helper::getInput('password'));
+		    if($login){
+			    Helper::redirect('index.php');
+		    }
+	    }
+    }
 ?>
 
 <!DOCTYPE html>

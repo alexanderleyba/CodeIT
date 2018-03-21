@@ -1,6 +1,10 @@
 <?php
     require_once 'core/init.php';
-    echo $_SESSION['user'];
+    $user = new Auth();
+    if($user->isLogin()) {
+
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -17,26 +21,31 @@
 
 <div class="container form" >
 	<div class="row">
-		<div class="col-lg-offset-4 col-lg-4">
-			<a href="login.php" class="btn btn-primary btn-block">Log In</a>
-            <a href="register.php" class="btn btn-warning btn-block">Register</a>
-		</div>
+        <?php
+            if(!$user->isLogin()) {
+        ?>
+            <div class="col-lg-offset-4 col-lg-4 text-center">
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="login.php"  class="btn btn-default">Login</a>
+                    <a href="register.php" class="btn btn-default">Register</a>
+                </div>
+            </div>
+
+        <?php
+            }
+            else {
+        ?>
+            <div class="col-lg-offset-4 col-lg-4 bg-success">
+                <p class="text-center">Hello, <?php echo $user->UserData()->username; ?> </p>
+                <p class="text-center">User email:  <?php echo $user->UserData()->email; ?> </p>
+                <a href="logout.php" class="btn btn-default btn-block">Logout</a>
+            </div>
+        <?php
+            }
+        ?>
+
+
 	</div>
-    <div class="row">
-        <div class="col-lg-12">
-            <br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-offset-4 col-lg-4" >
-
-            <?php
-
-
-            ?>
-
-        </div>
-    </div>
 </div>
 
 
