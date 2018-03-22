@@ -18,7 +18,7 @@ class DB
 
 
 	public function __construct(){
-		// connection to DD
+		// connection to DB
 		try {
 			// creating connection using Config class to obtain needed data.
 			$this->connection = new PDO('mysql:host='.Config::get('mysql/host').';dbname='.Config::get('mysql/db'),

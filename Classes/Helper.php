@@ -51,19 +51,13 @@ class Helper
 		}
 	}
 
-	// Hash generators
-	public static function MakeHash($string,$salt=''){
-		return hash('sha256', $string . $salt);
-	}
+    // simple helpers for SESSION superglobal
 
-	public static function MakeSalt($length){
-		return random_bytes($length);
-	}
-
+    // saves to SESSION
 	public static function Session_save($name,$value){
 		return $_SESSION[$name] = $value;
 	}
-
+    // delete from SESSION
 	public static function  Session_delete($name){
 		if(isset($_SESSION[$name])){
 			unset($_SESSION[$name]);

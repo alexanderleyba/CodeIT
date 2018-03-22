@@ -83,9 +83,9 @@ class Validator
 		$this->errors[] = $error;
 	}
 	// generates HTML for Erros
-	public function generateErrorHTML(){
+	public function generateHTMLerror(){
 		if(!$this->status()){
-			echo "<div class='alert alert-danger class=' role='alert'>";
+			echo "<div class='alert alert-danger text-center' role='alert'>";
 			foreach ($this->errors as $error){
 				echo $error;
 				echo "<br>";

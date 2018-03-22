@@ -16,8 +16,13 @@
 		    $login = $Auth->login(Helper::getInput('login'),Helper::getInput('password'));
 		    if($login){
 			    Helper::redirect('index.php');
-		    }
+		    }else{
+                $Auth->generateHTMLerror();
+            }
 	    }
+	    else{
+            $validation->generateHTMLerror();
+        }
     }
 ?>
 
@@ -26,22 +31,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>
-	<!-- Latest compiled and minified Bootstrap 3 CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="Includes/CSS/bootstrap.min.css">
 	<link rel="stylesheet" href="Includes/CSS/styles.css">
 </head>
 <body>
 <div class="container form">
-    <div class="row">
-        <div class="col-lg-4 col-lg-offset-4">
-			<?php
-			if(Helper::checkInput()){
-				$validation->generateErrorHTML();
-			}
-			?>
-        </div>
-    </div>
+
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="text-center">
@@ -50,13 +45,13 @@
 					<div class="form-group">
 						<label for="login" class="col-sm-4 control-label">Username or Email</label>
 						<div class="col-sm-8">
-							<input type="text" id="login" name="login" class="form-control" autofocus>
+							<input type="text" id="login" name="login" class="form-control" value="<?php echo Helper::getInput('login') ?>" autofocus>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="password" class="col-sm-4 control-label">Password</label>
 						<div class="col-sm-8">
-							<input type="password" id="password" name="password" class="form-control" autofocus>
+							<input type="password" id="password" name="password" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">

@@ -1,7 +1,11 @@
 <?php
+
     require_once 'core/init.php';
+
     $Auth = new Auth();
+    // checking if User already logged in
     if($Auth->isLogin()){
+        // logged in user is redirected to the index page
         Helper::redirect('index.php');
     }elseif (Helper::checkInput()){
 	    $validate = new Validator();
@@ -60,7 +64,6 @@
 	    $validation = $validate->validate($_POST,$rules);
 
 	    if($validation->status()){
-		    //  $Auth = new Auth();
 		    try {
 			    $Auth->register(array(
 					    'username'=>Helper::getInput('username'),
@@ -75,11 +78,13 @@
                if($Auth->login(Helper::getInput('username'),Helper::getInput('password'))){
                    Helper::redirect('index.php');
                }
-			   // Helper::redirect('index.php');
 		    } catch(Exception $e) {
 			    die($e->getMessage());
 		    }
 	    }
+	    else{
+            $validation->generateHTMLerror();
+        }
     }
 
 ?>
@@ -90,23 +95,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Register</title>
-	<!-- Latest compiled and minified Bootstrap 3 CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="Includes/CSS/bootstrap.min.css">
 	<link rel="stylesheet" href="Includes/CSS/styles.css">
 </head>
 <body>
 
 <div class="container form" >
-    <div class="row">
-        <div class="col-lg-4 col-lg-offset-4">
-			<?php
-                  if(Helper::checkInput()){
-				        $validation->generateErrorHTML();
-                  }
-            ?>
-        </div>
-    </div>
 	<form class="form-horizontal" role="form" method="POST" action="">
 		<h2>Registration</h2>
 		<div class="form-group">

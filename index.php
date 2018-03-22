@@ -12,9 +12,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Index</title>
-	<!-- Latest compiled and minified Bootstrap 3 CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="/Includes/CSS/bootstrap.min.css">
 	<link rel="stylesheet" href="Includes/CSS/styles.css">
 </head>
 <body>
@@ -36,7 +34,7 @@
             else {
         ?>
             <div class="col-lg-offset-4 col-lg-4 bg-success">
-                <p class="text-center">Hello, <?php echo $user->UserData()->username; ?> </p>
+                <p class="text-center">Hello, <?php echo $user->UserData()->name; ?> </p>
                 <p class="text-center">User email:  <?php echo $user->UserData()->email; ?> </p>
                 <a href="logout.php" class="btn btn-default btn-block">Logout</a>
             </div>
