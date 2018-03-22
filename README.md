@@ -1,4 +1,4 @@
-# CodeIT
+# CodeIT Task 1
 Task 1: Registration/Login/Logout forms
 
 # Setup:
