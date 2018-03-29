@@ -28,6 +28,7 @@ class Auth
 	 		throw new Exception("Error registering a user");
 	    }
 	 }
+	 
 
 	 public function login($login = null,$password = null){
 		// checking if user exists in DB by username or email
@@ -87,3 +88,4 @@ class Auth
 
 
 }
+?>

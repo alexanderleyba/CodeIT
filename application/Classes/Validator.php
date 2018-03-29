@@ -84,7 +84,19 @@ class Validator
 	}
 	// generates HTML for Erros
 	public function generateHTMLerror(){
+		$HTML = '';
 		if(!$this->status()){
+			$HTML .= "<div class='alert alert-danger text-center' role='alert'>";
+			foreach ($this->errors as $error){
+				$HTML .= $error;
+				$HTML .= "<br>";
+			}
+			$HTML .= "</div>";
+			return $HTML;
+		}
+		return false;
+
+		/*if(!$this->status()){
 			echo "<div class='alert alert-danger text-center' role='alert'>";
 			foreach ($this->errors as $error){
 				echo $error;
@@ -92,7 +104,7 @@ class Validator
 			}
 			echo "</div>";
 		}
-		return false;
+		return false;*/
 	}
 
 	// getter for Errors
