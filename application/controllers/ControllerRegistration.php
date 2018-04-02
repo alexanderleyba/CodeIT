@@ -14,6 +14,7 @@ class ControllerRegistration extends Controller
 		$this->model = new ModelRegistration();
 		// gettting countries list
 		$this->data['countries'] = $this->model->getCountriesArray();
+		// validation rules
 		$this->rules = [
 		    'username'=> [
 			    'name'=>'Username',

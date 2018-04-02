@@ -12,38 +12,14 @@ class ControllerLogin extends Controller
 	{
 		parent::__construct();
 		$this->model = new ModelLogin();
+		// validation rules
 		$this->rules = [
 			    'login' => ['name'=>'Login','required'=>true],
 			    'password'=>['name'=>'Password','required'=>true]
 		    ];
 	}
 
-/*	public function index(){
-		// checking if user already logged in
-		$Auth = new Auth;
-		if($Auth->isLogin()){
-			// if logged in -> redirect home
-			Helper::redirect('home');
-		}
-		// checking if input was provided
-		elseif(Helper::checkInput()){
-			// trying to log user in
-			$tryLogin = $this->model->login();
-			if($tryLogin === true){
-				// if loggin in successful -> redirect home
-				Helper::redirect('home');
-			}
-			else{
-				// if loggin in failed save errors and render view
-				$this->data['error'] = $tryLogin;
-				$this->loginView();
-			}
-		}
-		else{
-			// if no input just render view
-			$this->loginView();
-		}
-	}*/
+
 
 	public function index(){
 		// checking if user already logged in
@@ -59,13 +35,15 @@ class ControllerLogin extends Controller
 				// validation passed -> try log user in
 				$tryLogin = $this->model->login();
 				if($tryLogin){
+					// login successful -> redirecting home
 					Helper::redirect('home');
 				}else{
+					// loggin in falied. displaying an errors
 					$this->data['error'] = $tryLogin;
 					$this->loginView();	
 				}
 			}else{
-				// validation failed -> generating errors;
+				// validation failed -> displaing errors;
 				$this->data['error'] = $validation->generateHTMLerror();
 				$this->loginView();	
 			}	

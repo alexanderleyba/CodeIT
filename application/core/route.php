@@ -12,17 +12,12 @@ class Route
 		$ControllerMethod = 'index';
 		
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
-		
-	/*	echo '<pre>';
-		print_r($routes);
-		echo '</pre>';*/
-
-		if ( !empty($routes[2]) )
-		{	
+		// getting Controller 
+		if(!empty($routes[2])){
 			$Controller = $routes[2];
-		}	
-		if ( !empty($routes[3]) )
-		{
+		}
+		// getting Controller Method
+		if( !empty($routes[3])){
 			$ControllerMethod = $routes[3];
 		}
 
@@ -30,54 +25,26 @@ class Route
 		$Model = 'Model'.$Controller;
 		$Controller = 'Controller'.$Controller;
 		
-/*		echo $Model;
-		echo '<br>';
-		echo $Controller;
-		echo '<br>';*/
-
-		// Including Model 
-
-		if(file_exists("application/models/".$Model.'.php'))
-		{
-/*		    echo 'Model exists';
-			echo '<br>';*/
+		// Including Model file
+		if(file_exists("application/models/".$Model.'.php')){
 			include "application/models/".$Model.'.php';
 		}
 
-		// Including controller
-
-		if(file_exists("application/controllers/".$Controller.'.php'))
-		{
+		// Including controller file
+		if(file_exists("application/controllers/".$Controller.'.php')){
 			include "application/controllers/".$Controller.'.php';
-/*			echo 'Controller exists!';
-			echo '<br>';*/
 		}
-		else
-		{
-			Route::ErrorPage404();
+		else{
+			// redirect 404;
+			Helper::redirect('404');
 		}
-		
+		// creating new Controller instance
 		$Controller = new $Controller;
 
-		if(method_exists($Controller, $ControllerMethod))
-		{
-/*			echo $controller.' Method exissts and it is '.$ControllerMethod;
-			echo "<br>";*/
+		if(method_exists($Controller, $ControllerMethod)){
 			$Controller->$ControllerMethod();
+		}else{
+			Helper::redirect('404');
 		}
-		else
-		{
-			Route::ErrorPage404();
-		}
-	
-	}
-
-	public static function ErrorPage404()
-	{
-        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-        header('HTTP/1.1 404 Not Found');
-		header("Status: 404 Not Found");
-		header('Location:'.$host.'404');
-    }
-    
+	} 
 }
