@@ -6,42 +6,99 @@ class ControllerRegistration extends Controller
 	public $model;
 	public $view;
 	public $data = array();
+	public $rules;
 	
 	public function __construct()
 	{
+		parent::__construct();
 		$this->model = new ModelRegistration();
-		$this->view = new View();
 		// gettting countries list
 		$this->data['countries'] = $this->model->getCountriesArray();
+		$this->rules = [
+		    'username'=> [
+			    'name'=>'Username',
+			    'required'=> true,
+			    'min' => 5,
+			    'max' => 20,
+			    'unique'=> 'users',
+			    'bad_symbols'=>true
+		    ],
+
+		    'name'=> [
+			    'name' => 'Real name',
+			    'required'=> true,
+			    'min' => 5,
+			    'max' => 50
+		    ],
+
+		    'DOB' => [
+			    'name' => 'Date of Birth',
+			    'required'=> true
+		    ],
+
+		    'country' => [
+			    'name'=> 'Country',
+			    'required'=> true
+		    ],
+
+		    'email'=>[
+			    'name'=>'Email',
+			    'required'=> true,
+			    'type'=>'email',
+			    'unique'=>'users'
+		    ],
+
+		    'password' => [
+			    'name'=>'Password',
+			    'required'=> true,
+			    'min' => 6,
+			    'max' => 25
+		    ],
+
+		    'password_second' => [
+			    'name'=>'Password again',
+			    'required'=> true,
+			    'matches' => 'password'
+		    ],
+
+		    'terms' => [
+			    'name'=>'Terms',
+			    'required' => true
+		    ]
+	    ];
 	}
 	
+
 	public function index(){
-		// checking if user already logged in
 		$Auth = new Auth;
+		// checking if user alredy logged in
 		if($Auth->isLogin()){
-			// if logged in redirect home
+			// if loggen in redirect home
 			Helper::redirect('home');
-			// checking if input was provided
 		}elseif(Helper::checkInput()){
-			// trying to register
-			$register = $this->model->process_registration();
-			if($register === true){
-				// if registration was successful loggin user in
+			// if input was provided 
+			// validating form data 
+			$validate = new Validator();
+			$validation = $validate->validate($_POST,$this->rules);	
+			if($validation->status()){
+				// validation passed -> registring a user;	
+				$register = $this->model->process_registration();
+				// if registration successful -> loggin user in
 				$Auth->login(Helper::getInput('email'),Helper::getInput('password'));
 				// and redirecting home
 				Helper::redirect('home');
 			}
 			else{
-				// if registration fails, saving errors and render view
-				$this->data['error'] = $register;
+				// validation failed 
+				$this->data['error'] = $validation->generateHTMLerror();
 				$this->RegisterView();
 			}
 		}
 		else{
-			// just rendering view
+			// just rendering a view
 			$this->RegisterView();
 		}
-	}
+	}	
 
 	public function RegisterView(){
 		$this->view->generate('register.php', 'layout.php', $this->data);
