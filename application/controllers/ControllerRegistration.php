@@ -91,7 +91,7 @@ class ControllerRegistration extends Controller
 			}
 			else{
 				// validation failed 
-				$this->data['error'] = $validation->generateHTMLerror();
+				$this->data['error'] = $validation->errors();
 				$this->RegisterView();
 			}
 		}

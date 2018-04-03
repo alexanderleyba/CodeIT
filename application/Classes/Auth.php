@@ -59,17 +59,6 @@ class Auth
 	private function addError($error){
 	     $this->errors[] = $error;
     }
-    // generates some HTML wrapper for errors
-    public function generateHTMLerror(){
-	    if($this->errors()){
-            echo "<div class='alert alert-danger text-center' role='alert'>";
-            foreach ($this->errors() as $error){
-                echo $error;
-                echo "<br>";
-            }
-            echo "</div>";
-        }
-    }
 
 	// getter for login_flag
 	public function isLogin(){

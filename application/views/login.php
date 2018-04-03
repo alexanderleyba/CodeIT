@@ -1,5 +1,10 @@
 <?php if(isset($data['error'])){
-        echo $data['error'];
+       echo "<div class='alert alert-danger text-center' role='alert'>";
+       foreach ($data['error'] as $error) {
+           echo $error;
+           echo "<br>";
+       }
+       echo "</div>";
     } ?>
 <div class="text-center">
     <h3>Please Log-in</h3>

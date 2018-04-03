@@ -1,4 +1,11 @@
-<?php echo $data['error']; ?>
+<?php if(isset($data['error'])){
+       echo "<div class='alert alert-danger text-center' role='alert'>";
+       foreach ($data['error'] as $error) {
+           echo $error;
+           echo "<br>";
+       }
+       echo "</div>";
+    } ?>
 
 <form class="form-horizontal" role="form" method="POST" action="">
     <h2>Registration </h2>

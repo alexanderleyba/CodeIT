@@ -34,7 +34,7 @@ class ControllerLogin extends Controller
 			if($validation->status()){
 				// validation passed -> try log user in
 				$tryLogin = $this->model->login();
-				if($tryLogin){
+				if($tryLogin === true){
 					// login successful -> redirecting home
 					Helper::redirect('home');
 				}else{
@@ -44,7 +44,7 @@ class ControllerLogin extends Controller
 				}
 			}else{
 				// validation failed -> displaing errors;
-				$this->data['error'] = $validation->generateHTMLerror();
+				$this->data['error'] = $validation->errors();
 				$this->loginView();	
 			}	
 		}else{
