@@ -36,7 +36,7 @@ class ControllerLogin extends Controller
 				$tryLogin = $this->model->login();
 				if($tryLogin === true){
 					// login successful -> redirecting home
-					Helper::redirect('home');
+					Helper::redirect('Home');
 				}else{
 					// loggin in falied. displaying an errors
 					$this->data['error'] = $tryLogin;
@@ -56,7 +56,7 @@ class ControllerLogin extends Controller
 
 
 	public function loginView(){
-		$this->view->generate('Login.php', 'layout.php',$this->data);
+		$this->view->generate('login.php', 'layout.php',$this->data);
 	}
 
 }

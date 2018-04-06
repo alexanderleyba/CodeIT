@@ -1,8 +1,7 @@
 <?php
-
 class ControllerRegistration extends Controller
 {
-
+	
 	public $model;
 	public $view;
 	public $data = array();
@@ -87,7 +86,7 @@ class ControllerRegistration extends Controller
 				// if registration successful -> loggin user in
 				$Auth->login(Helper::getInput('email'),Helper::getInput('password'));
 				// and redirecting home
-				Helper::redirect('home');
+				Helper::redirect('Home');
 			}
 			else{
 				// validation failed 

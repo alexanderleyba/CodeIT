@@ -12,14 +12,16 @@ class Auth
 	 	// database connection
 	    $this->db_instance = DB::getInstance();
         // checking if user already logged in
-	 	$user_id = $_SESSION['user'];
-	 	$check_if_user_exists = $this->db_instance->get('users',['id','=',$user_id]);
-	 	if($check_if_user_exists->count()){
-	 	    // if ID stored in SESSION matches ID in database then user is logged in
-	 		$this->login_flag = true;
-	 		$this->userdata = $check_if_user_exists->first();
- 	    }
-
+	 	
+	 	if(isset($_SESSION['user'])){
+	 		$user_id = $_SESSION['user'];
+	 		$check_if_user_exists = $this->db_instance->get('users',['id','=',$user_id]);	
+	 		if($check_if_user_exists->count()){
+		 	    // if ID stored in SESSION matches ID in database then user is logged in
+		 		$this->login_flag = true;
+		 		$this->userdata = $check_if_user_exists->first();
+ 	   	 	}	
+	 	}
 	 }
 
 
@@ -52,7 +54,11 @@ class Auth
 	 }
 
     public function logout(){
-	 	Helper::Session_delete('user');
+    	if(Helper::Session_delete('user')){
+    		return true;
+    	}
+    	return false;
+	 	
     }
 
     // Adds an error to errors array

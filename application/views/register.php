@@ -1,4 +1,6 @@
-<?php if(isset($data['error'])){
+
+<?php 
+    if(isset($data['error'])){
        echo "<div class='alert alert-danger text-center' role='alert'>";
        foreach ($data['error'] as $error) {
            echo $error;

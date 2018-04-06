@@ -1,5 +1,6 @@
 <?php
 // Core functionality
-require_once 'application/bootstrap.php';
+
+require_once './application/bootstrap.php';
 
 ?>

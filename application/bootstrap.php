@@ -4,12 +4,21 @@ session_start();
 // defining Config Array
 $GLOBALS['config'] = array(
 	'mysql' => array(
+		'host' => 'otopleniye.com.ua',
+		'username' => 'otopleni',
+		'password' => '(Xrc!A12VQ~o~k',
+		'db' => 'otopleni_Codeit'
+	)
+);
+/*
+$GLOBALS['config'] = array(
+	'mysql' => array(
 		'host' => '127.0.0.1',
 		'username' => 'root',
 		'password' => '',
 		'db' => 'test'
 	)
-);
+);*/
 // setting up an autoloader for classes
 spl_autoload_register(function($class) {
 	require_once 'Classes/'.$class.'.php';

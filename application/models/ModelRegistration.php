@@ -24,7 +24,7 @@ class ModelRegistration extends Model
 
 	public function getCountriesArray(){
 		// get country list for select. Simple.
-		$countries = DB::getInstance()->QueryExecute('SELECT * FROM Country');
+		$countries = DB::getInstance()->QueryExecute('SELECT * FROM country');
 		$countries = $countries->results();
 		return $countries;
 	}

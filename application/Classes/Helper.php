@@ -61,7 +61,9 @@ class Helper
 	public static function  Session_delete($name){
 		if(isset($_SESSION[$name])){
 			unset($_SESSION[$name]);
+			return true;
 		}
+		return false;
 	}
 
 }
